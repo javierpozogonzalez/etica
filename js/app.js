@@ -293,8 +293,12 @@ function renderQuiz() {
   document.getElementById("btn-reveal").addEventListener("click", revealAnswer);
   document.getElementById("btn-next").addEventListener("click", nextQuestion);
 
-  if (session.revealed) applyRevealStyles();
-  if (session.selected) highlightSelected(session.selected);
+  if (session.revealed) {
+    const answered = session.answers[session.index];
+    applyRevealStyles(currentQ(), answered?.chosen ?? session.selected);
+  } else if (session.selected) {
+    highlightSelected(session.selected);
+  }
 }
 
 function selectOption(key) {
@@ -323,24 +327,24 @@ function revealAnswer() {
       isCorrect,
     });
 
+    applyRevealStyles(q, chosen);
+
     let statusNote = "";
     if (isCorrect) {
       if (getFailedIds().has(q.id)) {
         removeFailed(q.id);
         session.removedFromFailed += 1;
-        if (session.mode === "failed") {
-          session.questions.splice(session.index, 1);
-          session.skipIndexIncrement = true;
-        }
         const remaining = getFailedCount();
         statusNote = `<p class="explanation-status explanation-status-ok">✓ Eliminada de tus fallos — ${remaining} restante${remaining === 1 ? "" : "s"}</p>`;
+      }
+      if (session.mode === "failed") {
+        session.questions.splice(session.index, 1);
+        session.skipIndexIncrement = true;
       }
     } else {
       addFailed(q.id);
       statusNote = `<p class="explanation-status explanation-status-ko">✗ Guardada en preguntas falladas para repasar</p>`;
     }
-
-    applyRevealStyles();
 
     const slot = document.getElementById("explanation-slot");
     slot.innerHTML = `
@@ -360,14 +364,15 @@ function revealAnswer() {
   }
 }
 
-function applyRevealStyles() {
-  const q = currentQ();
+function applyRevealStyles(q = null, selected = null) {
+  const question = q ?? currentQ();
+  const chosen = selected ?? session.selected;
   document.querySelectorAll(".option").forEach((btn) => {
     const key = btn.dataset.key;
     btn.disabled = true;
     btn.classList.remove("selected");
-    if (key === q.correct) btn.classList.add("correct");
-    else if (key === session.selected) btn.classList.add("incorrect");
+    if (key === question.correct) btn.classList.add("correct");
+    else if (key === chosen) btn.classList.add("incorrect");
   });
 }
 
