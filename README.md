@@ -8,6 +8,7 @@ Web para practicar el examen tipo test de **Ética y Derecho Informático**.
 - **Preguntas aleatorias**: elige cuántas quieres practicar
 - **Por tema**: 8 bloques temáticos del temario
 - **Ver respuesta**: muestra la opción correcta y una breve explicación
+- **Preguntas falladas**: guarda automáticamente los fallos (en este navegador) y permite repasarlos hasta acertarlas
 
 ## Uso local
 

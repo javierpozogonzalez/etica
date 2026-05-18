@@ -1,7 +1,48 @@
 const $app = document.getElementById("app");
+const FAILED_STORAGE_KEY = "etica-failed-v1";
 
 let data = null;
 let session = null;
+
+function getFailedIds() {
+  try {
+    const raw = localStorage.getItem(FAILED_STORAGE_KEY);
+    return new Set(raw ? JSON.parse(raw) : []);
+  } catch {
+    return new Set();
+  }
+}
+
+function saveFailedIds(ids) {
+  localStorage.setItem(FAILED_STORAGE_KEY, JSON.stringify([...ids]));
+}
+
+function addFailed(id) {
+  const ids = getFailedIds();
+  ids.add(id);
+  saveFailedIds(ids);
+  return ids.size;
+}
+
+function removeFailed(id) {
+  const ids = getFailedIds();
+  ids.delete(id);
+  saveFailedIds(ids);
+  return ids.size;
+}
+
+function clearAllFailed() {
+  localStorage.removeItem(FAILED_STORAGE_KEY);
+}
+
+function getFailedQuestions() {
+  const ids = getFailedIds();
+  return shuffle(data.questions.filter((q) => ids.has(q.id)));
+}
+
+function getFailedCount() {
+  return getFailedIds().size;
+}
 
 async function loadData() {
   const res = await fetch("data/questions.json");
@@ -34,6 +75,7 @@ function escapeHtml(str) {
 
 function renderHome() {
   const { meta } = data;
+  const failedCount = getFailedCount();
   $app.innerHTML = `
     <div class="panel">
       <h2>Elige modo de práctica</h2>
@@ -42,6 +84,11 @@ function renderHome() {
         <button type="button" class="mode-card featured" data-mode="exam">
           <strong>Simulacro de examen</strong>
           <span>${meta.examSize} preguntas aleatorias de todos los temas</span>
+        </button>
+        <button type="button" class="mode-card mode-card-failed ${failedCount ? "" : "is-disabled"}" data-mode="failed" ${failedCount ? "" : "disabled"}>
+          <strong>Preguntas falladas</strong>
+          <span>${failedCount ? `${failedCount} guardada${failedCount === 1 ? "" : "s"} — se eliminan al acertar` : "Aún no tienes fallos guardados"}</span>
+          ${failedCount ? `<span class="failed-badge">${failedCount}</span>` : ""}
         </button>
         <button type="button" class="mode-card" data-mode="random">
           <strong>Preguntas aleatorias</strong>
@@ -52,6 +99,11 @@ function renderHome() {
           <span>Estudia un bloque temático concreto</span>
         </button>
       </div>
+      ${failedCount ? `
+      <div class="failed-actions">
+        <p class="failed-hint">Las preguntas que falles en cualquier modo se guardan aquí automáticamente.</p>
+        <button type="button" class="btn btn-ghost btn-sm" id="btn-clear-failed">Vaciar lista de fallos</button>
+      </div>` : ""}
     </div>
     <div class="panel hidden" id="tema-panel">
       <h2>Selecciona un tema</h2>
@@ -84,8 +136,37 @@ function renderHome() {
       title: "Simulacro de examen",
       subtitle: `${meta.examSize} preguntas aleatorias`,
       questions: pickQuestions({ count: meta.examSize }),
+      mode: "normal",
     });
   });
+
+  const failedBtn = $app.querySelector('[data-mode="failed"]');
+  if (failedBtn) {
+    failedBtn.addEventListener("click", () => {
+      const questions = getFailedQuestions();
+      if (!questions.length) {
+        alert("No tienes preguntas falladas guardadas.");
+        renderHome();
+        return;
+      }
+      startSession({
+        title: "Preguntas falladas",
+        subtitle: `${questions.length} por repasar hasta acertar`,
+        questions,
+        mode: "failed",
+      });
+    });
+  }
+
+  const clearBtn = document.getElementById("btn-clear-failed");
+  if (clearBtn) {
+    clearBtn.addEventListener("click", () => {
+      if (confirm("¿Vaciar todas las preguntas falladas guardadas?")) {
+        clearAllFailed();
+        renderHome();
+      }
+    });
+  }
 
   $app.querySelector('[data-mode="random"]').addEventListener("click", () => {
     document.getElementById("count-panel").classList.remove("hidden");
@@ -107,6 +188,7 @@ function renderHome() {
         title: `Tema ${temaId}`,
         subtitle: tema.name,
         questions: all,
+        mode: "normal",
       });
     });
   });
@@ -121,20 +203,24 @@ function renderHome() {
       title: "Práctica aleatoria",
       subtitle: `${n} preguntas`,
       questions: pickQuestions({ count: n }),
+      mode: "normal",
     });
   });
 }
 
-function startSession({ title, subtitle, questions }) {
+function startSession({ title, subtitle, questions, mode = "normal" }) {
   session = {
     title,
     subtitle,
     questions,
+    mode,
     index: 0,
     answers: [],
     revealed: false,
     selected: null,
     finished: false,
+    removedFromFailed: 0,
+    skipIndexIncrement: false,
   };
   renderQuiz();
 }
@@ -159,6 +245,7 @@ function renderQuiz() {
       <div class="quiz-meta">
         <span class="badge accent">${escapeHtml(session.title)}</span>
         <span class="badge">${escapeHtml(session.subtitle)}</span>
+        ${session.mode === "failed" ? `<span class="badge badge-failed">${getFailedCount()} en lista</span>` : ""}
       </div>
       <div class="progress-wrap">
         <div class="progress-label">
@@ -227,27 +314,49 @@ function revealAnswer() {
     session.revealed = true;
     const q = currentQ();
     const chosen = session.selected;
-    const correct = q.correct === chosen;
+    const isCorrect = chosen != null && q.correct === chosen;
 
     session.answers.push({
       questionId: q.id,
       chosen: chosen ?? null,
       correct: q.correct,
-      isCorrect: chosen != null && correct,
+      isCorrect,
     });
+
+    let statusNote = "";
+    if (isCorrect) {
+      if (getFailedIds().has(q.id)) {
+        removeFailed(q.id);
+        session.removedFromFailed += 1;
+        if (session.mode === "failed") {
+          session.questions.splice(session.index, 1);
+          session.skipIndexIncrement = true;
+        }
+        const remaining = getFailedCount();
+        statusNote = `<p class="explanation-status explanation-status-ok">✓ Eliminada de tus fallos — ${remaining} restante${remaining === 1 ? "" : "s"}</p>`;
+      }
+    } else {
+      addFailed(q.id);
+      statusNote = `<p class="explanation-status explanation-status-ko">✗ Guardada en preguntas falladas para repasar</p>`;
+    }
 
     applyRevealStyles();
 
     const slot = document.getElementById("explanation-slot");
     slot.innerHTML = `
-      <div class="explanation">
+      <div class="explanation ${isCorrect ? "" : "explanation-wrong"}">
         <h3>Respuesta correcta: ${q.correct.toUpperCase()}</h3>
+        ${statusNote}
         <p>${escapeHtml(q.explanation)}</p>
       </div>
     `;
 
     document.getElementById("btn-reveal").disabled = true;
-    document.getElementById("btn-next").classList.remove("hidden");
+    const btnNext = document.getElementById("btn-next");
+    btnNext.classList.remove("hidden");
+    if (session.mode === "failed" && session.questions.length === 0) {
+      btnNext.textContent = "Ver resultados";
+    }
   }
 }
 
@@ -263,12 +372,26 @@ function applyRevealStyles() {
 }
 
 function nextQuestion() {
-  if (session.index + 1 >= session.questions.length) {
+  if (session.questions.length === 0) {
     session.finished = true;
     renderResults();
     return;
   }
-  session.index += 1;
+
+  if (!session.skipIndexIncrement) {
+    session.index += 1;
+    if (session.index >= session.questions.length) {
+      session.finished = true;
+      renderResults();
+      return;
+    }
+  } else {
+    session.skipIndexIncrement = false;
+    if (session.index >= session.questions.length) {
+      session.index = Math.max(0, session.questions.length - 1);
+    }
+  }
+
   session.revealed = false;
   session.selected = null;
   renderQuiz();
@@ -295,7 +418,9 @@ function renderResults() {
         <div class="stat-box ko"><div class="num">${ko}</div><div class="lbl">Incorrectas</div></div>
         <div class="stat-box"><div class="num">${unanswered}</div><div class="lbl">Sin responder</div></div>
       </div>
+      ${session.removedFromFailed > 0 ? `<p class="lead failed-summary">Has eliminado ${session.removedFromFailed} de tus fallos. Quedan ${getFailedCount()} guardada${getFailedCount() === 1 ? "" : "s"}.</p>` : ""}
       <div class="actions">
+        ${session.mode === "failed" && getFailedCount() > 0 ? `<button type="button" class="btn btn-primary" id="btn-retry-failed">Seguir con fallos (${getFailedCount()})</button>` : ""}
         <button type="button" class="btn btn-primary" id="btn-retry">Repetir misma sesión</button>
         <button type="button" class="btn btn-secondary" id="btn-new">Nueva sesión</button>
       </div>
@@ -305,13 +430,37 @@ function renderResults() {
   document.getElementById("btn-home").addEventListener("click", renderHome);
   document.getElementById("btn-new").addEventListener("click", renderHome);
   document.getElementById("btn-retry").addEventListener("click", () => {
-    const qs = shuffle(session.questions);
+    const qs =
+      session.mode === "failed"
+        ? getFailedQuestions()
+        : shuffle([...session.questions]);
+    if (!qs.length) {
+      alert("No quedan preguntas falladas para repasar.");
+      renderHome();
+      return;
+    }
     startSession({
       title: session.title,
-      subtitle: session.subtitle,
+      subtitle:
+        session.mode === "failed"
+          ? `${qs.length} por repasar hasta acertar`
+          : session.subtitle,
       questions: qs,
+      mode: session.mode,
     });
   });
+
+  const retryFailedBtn = document.getElementById("btn-retry-failed");
+  if (retryFailedBtn) {
+    retryFailedBtn.addEventListener("click", () => {
+      startSession({
+        title: "Preguntas falladas",
+        subtitle: `${getFailedCount()} por repasar hasta acertar`,
+        questions: getFailedQuestions(),
+        mode: "failed",
+      });
+    });
+  }
 }
 
 async function init() {

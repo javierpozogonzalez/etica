@@ -171,6 +171,100 @@ body {
   border-color: rgba(61, 154, 237, 0.4);
 }
 
+.mode-card-failed {
+  position: relative;
+  grid-column: 1 / -1;
+  background: linear-gradient(135deg, var(--error-soft), transparent);
+  border-color: rgba(240, 113, 120, 0.35);
+}
+
+.mode-card-failed:not(.is-disabled):hover {
+  border-color: var(--error);
+  background: var(--error-soft);
+}
+
+.mode-card-failed.is-disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.mode-card-failed.is-disabled:hover {
+  transform: none;
+  border-color: var(--border);
+  background: var(--surface-2);
+}
+
+.failed-badge {
+  position: absolute;
+  top: 0.85rem;
+  right: 1rem;
+  min-width: 1.75rem;
+  height: 1.75rem;
+  padding: 0 0.45rem;
+  border-radius: 999px;
+  background: var(--error);
+  color: #1a0a0c;
+  font-size: 0.85rem;
+  font-weight: 700;
+  display: grid;
+  place-items: center;
+}
+
+.failed-actions {
+  margin-top: 1.25rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
+}
+
+.failed-hint {
+  margin: 0 0 0.75rem;
+  font-size: 0.88rem;
+  color: var(--text-muted);
+}
+
+.btn-sm {
+  padding: 0.5rem 0.9rem;
+  font-size: 0.85rem;
+}
+
+.badge-failed {
+  background: var(--error-soft);
+  border-color: rgba(240, 113, 120, 0.35);
+  color: var(--error);
+}
+
+.explanation-wrong {
+  background: var(--error-soft);
+  border-color: rgba(240, 113, 120, 0.35);
+}
+
+.explanation-wrong h3 {
+  color: var(--error);
+}
+
+.explanation-status {
+  margin: 0 0 0.5rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.explanation-status-ok {
+  color: var(--success);
+}
+
+.explanation-status-ko {
+  color: var(--error);
+}
+
+.failed-summary {
+  margin: 0 0 1rem;
+  padding: 0.75rem 1rem;
+  border-radius: 10px;
+  background: var(--success-soft);
+  border: 1px solid rgba(52, 199, 123, 0.35);
+  color: var(--success);
+}
+
 .mode-card strong {
   display: block;
   font-size: 1.05rem;
