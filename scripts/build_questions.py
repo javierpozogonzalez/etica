@@ -3,6 +3,7 @@
 
 import json
 import re
+from difflib import SequenceMatcher
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -206,6 +207,108 @@ def build_explanation(q: dict) -> str:
     return f"La respuesta correcta es la {correct.upper()}."
 
 
+def _option_texts(options: list[dict]) -> list[str]:
+    return [normalize(o.get("text", "")) for o in options if o.get("text")]
+
+
+def _word_overlap(question: str, tail: str) -> float:
+    stop = {
+        "que", "los", "las", "una", "como", "para", "con", "del", "al",
+        "por", "sin", "sobre", "entre", "desde", "hasta", "esta", "este",
+        "estas", "estos", "más", "menos", "todo", "toda", "todos", "todas",
+        "ser", "son", "sido", "han", "hay", "debe", "deben", "cual", "cuando",
+    }
+    words_tail = {
+        w
+        for w in re.findall(r"[a-záéíóúñü]{4,}", tail.lower())
+        if w not in stop
+    }
+    words_q = {
+        w
+        for w in re.findall(r"[a-záéíóúñü]{4,}", question.lower())
+        if w not in stop
+    }
+    if not words_tail:
+        return 1.0
+    inter = len(words_q & words_tail)
+    return inter / len(words_tail)
+
+
+def build_hint(
+    explanation: str,
+    tema_name: str,
+    question: str,
+    options: list[dict],
+    correct: str,
+) -> str:
+    """Teoría orientativa sin revelar la letra de la opción correcta."""
+
+    expl = normalize(explanation)
+    correct_opt = next((o["text"] for o in options if o.get("key") == correct), "")
+    norm_correct = normalize(correct_opt).lower() if correct_opt else ""
+
+    tail = re.sub(
+        r"(?i)^La\s+respuesta\s+correcta\s+es\s+la\s+[a-d]\s*[,:.\-–]\s*",
+        "",
+        expl,
+    ).strip()
+    tail = re.sub(r"(?i)^Respuesta\s+correcta\s*[,:.\-–]?\s*[a-d]?\s*[,:.\-–]?\s*", "", tail).strip()
+
+    def fallback() -> str:
+        qshort = normalize(question)
+        if len(qshort) > 220:
+            qshort = qshort[:217] + "…"
+        return (
+            f"Estás en «{tema_name}». Repasa la pregunta: «{qshort}» "
+            "Identifica qué pide exactamente (definición, sujeto obligado, principio, plazo, tipo de dato, "
+            "requisito formal, etc.) y contrasta cada opción con el vocabulario y criterios habituales del temario. "
+            "Descarta respuestas que mezclen materias, confundan órganos o contradigan el marco general de la materia."
+        )
+
+    if not tail or len(tail) < 28:
+        return fallback()
+
+    low = tail.lower()
+    if norm_correct and (low == norm_correct or norm_correct == low):
+        return fallback()
+    if norm_correct and len(norm_correct) > 15:
+        if low.startswith(norm_correct[: min(24, len(norm_correct))]):
+            return fallback()
+        if norm_correct.startswith(low[: min(24, len(low))]) and len(tail) < 80:
+            return fallback()
+
+    for ot in _option_texts(options):
+        olow = ot.lower()
+        if len(olow) < 12:
+            continue
+        if low == olow or (len(tail) < 100 and olow in low and low in olow):
+            return fallback()
+
+    tail_compact = re.sub(r"\s+", "", low)
+    for o in options:
+        ot = normalize(o.get("text", ""))
+        if len(ot) < 18:
+            continue
+        o_compact = re.sub(r"\s+", "", ot.lower())
+        if len(o_compact) < 18:
+            continue
+        if o_compact in tail_compact or tail_compact in o_compact:
+            return fallback()
+        if len(tail_compact) > 35 and len(o_compact) > 35:
+            if SequenceMatcher(None, tail_compact, o_compact).ratio() > 0.82:
+                return fallback()
+
+    if len(tail) > 90 and _word_overlap(question, tail) < 0.14:
+        return fallback()
+
+    if norm_correct and len(norm_correct) > 35:
+        cc = re.sub(r"\s+", "", norm_correct)
+        if len(cc) > 35 and SequenceMatcher(None, tail_compact, cc).ratio() > 0.82:
+            return fallback()
+
+    return tail
+
+
 def main():
     etica_text = ETICA_TXT.read_text(encoding="utf-8")
     resumen_text = RESUMEN_TXT.read_text(encoding="utf-8")
@@ -231,6 +334,14 @@ def main():
             if not q.get("correct"):
                 continue
 
+            hint = build_hint(
+                explanation,
+                TEMA_NAMES.get(tema, f"Tema {tema}"),
+                q["question"],
+                q["options"],
+                q["correct"],
+            )
+
             questions_out.append(
                 {
                     "id": qid,
@@ -241,6 +352,7 @@ def main():
                     "options": q["options"],
                     "correct": q["correct"],
                     "explanation": explanation,
+                    "hint": hint,
                 }
             )
             qid += 1

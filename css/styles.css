@@ -387,6 +387,54 @@ body {
   margin-bottom: 1.25rem;
 }
 
+.hint-panel {
+  margin-bottom: 1.25rem;
+  padding: 1rem 1.1rem;
+  border-radius: 10px;
+  background: rgba(230, 180, 80, 0.1);
+  border: 1px solid rgba(230, 180, 80, 0.45);
+  animation: fadeIn 0.25s ease;
+}
+
+.hint-panel.hidden {
+  display: none;
+}
+
+.hint-title {
+  margin: 0 0 0.5rem;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--warning);
+}
+
+.hint-body {
+  margin: 0;
+  font-size: 0.92rem;
+  line-height: 1.55;
+  color: var(--text);
+}
+
+.actions-quiz {
+  align-items: center;
+  margin-bottom: 0.35rem;
+}
+
+.btn-hint {
+  background: rgba(230, 180, 80, 0.18);
+  color: var(--warning);
+  border: 1px solid rgba(230, 180, 80, 0.45);
+}
+
+.btn-hint:hover:not(:disabled) {
+  background: rgba(230, 180, 80, 0.28);
+  border-color: var(--warning);
+}
+
+.btn-hint:disabled {
+  opacity: 0.45;
+}
+
 .option {
   display: flex;
   align-items: flex-start;

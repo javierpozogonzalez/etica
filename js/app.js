@@ -73,6 +73,18 @@ function escapeHtml(str) {
   return d.innerHTML;
 }
 
+function getHintText(q) {
+  if (q.hint && String(q.hint).trim()) return q.hint;
+  const name = q.temaName || `Tema ${q.tema}`;
+  let qq = q.question || "";
+  if (qq.length > 220) qq = `${qq.slice(0, 217)}…`;
+  return (
+    `Estás en «${name}». Repasa la pregunta: «${qq}» ` +
+    "Identifica qué pide exactamente (definición, sujeto obligado, principio, plazo, tipo de dato, requisito formal, etc.) " +
+    "y contrasta cada opción con el vocabulario del temario."
+  );
+}
+
 function renderHome() {
   const { meta } = data;
   const failedCount = getFailedCount();
@@ -270,13 +282,20 @@ function renderQuiz() {
           .join("")}
       </div>
       <div id="explanation-slot"></div>
-      <div class="actions">
+      <div class="actions actions-quiz">
+        <button type="button" class="btn btn-hint" id="btn-hint" ${session.revealed ? "disabled" : ""}>
+          Pista
+        </button>
         <button type="button" class="btn btn-primary" id="btn-reveal" ${session.revealed ? "disabled" : ""}>
           Ver respuesta
         </button>
         <button type="button" class="btn btn-secondary hidden" id="btn-next">
           ${session.index + 1 >= total ? "Ver resultados" : "Siguiente pregunta"}
         </button>
+      </div>
+      <div id="hint-panel" class="hint-panel hidden" role="region" aria-live="polite">
+        <h4 class="hint-title">Pista teórica</h4>
+        <p class="hint-body">${escapeHtml(getHintText(q))}</p>
       </div>
     </div>
   `;
@@ -292,6 +311,15 @@ function renderQuiz() {
 
   document.getElementById("btn-reveal").addEventListener("click", revealAnswer);
   document.getElementById("btn-next").addEventListener("click", nextQuestion);
+
+  const btnHint = document.getElementById("btn-hint");
+  const hintPanel = document.getElementById("hint-panel");
+  if (btnHint && hintPanel) {
+    btnHint.addEventListener("click", () => {
+      hintPanel.classList.remove("hidden");
+      btnHint.disabled = true;
+    });
+  }
 
   if (session.revealed) {
     const answered = session.answers[session.index];
@@ -356,6 +384,8 @@ function revealAnswer() {
     `;
 
     document.getElementById("btn-reveal").disabled = true;
+    const btnHintReveal = document.getElementById("btn-hint");
+    if (btnHintReveal) btnHintReveal.disabled = true;
     const btnNext = document.getElementById("btn-next");
     btnNext.classList.remove("hidden");
     if (session.mode === "failed" && session.questions.length === 0) {
