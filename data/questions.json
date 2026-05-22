@@ -1919,7 +1919,7 @@
           "text": "Sólo en los casos que tengan fundadas sospechas de que no se da ese consentimiento"
         }
       ],
-      "correct": "b",
+      "correct": "c",
       "explanation": "Las otras tres respuestas son correctas.",
       "hint": "Las otras tres respuestas son correctas."
     },
@@ -1975,7 +1975,7 @@
           "text": "Interés público o ejercicio de poderes públicos"
         }
       ],
-      "correct": "c",
+      "correct": "b",
       "explanation": "El responsable del tratamiento.",
       "hint": "El responsable del tratamiento."
     },
@@ -2003,7 +2003,7 @@
           "text": "INCIBE"
         }
       ],
-      "correct": "b",
+      "correct": "c",
       "explanation": "Las otras tres respuestas son correctas.",
       "hint": "Las otras tres respuestas son correctas."
     },
@@ -2031,7 +2031,7 @@
           "text": "Derecho de rectificación"
         }
       ],
-      "correct": "d",
+      "correct": "b",
       "explanation": "Se denomina enfoque del riesgo. === PAGE 8 ===",
       "hint": "Se denomina enfoque del riesgo. === PAGE 8 ==="
     },
@@ -2059,7 +2059,7 @@
           "text": "Los responsables que hayan hecho públicos los datos personales deberán adoptar medidas técnicas para informar a otros responsab les de la solicitud del interesado de borrar su información personal"
         }
       ],
-      "correct": "a",
+      "correct": "d",
       "explanation": "El principio del consentimiento y el principio de responsabilidad proactiva.",
       "hint": "El principio del consentimiento y el principio de responsabilidad proactiva."
     },
@@ -2227,7 +2227,7 @@
           "text": "Finalidades de tratamiento"
         }
       ],
-      "correct": "b",
+      "correct": "c",
       "explanation": "Agencia Española de Proteccion de Datos.",
       "hint": "Agencia Española de Proteccion de Datos."
     },
@@ -2255,7 +2255,7 @@
           "text": "Una Ley Española Ordinaria"
         }
       ],
-      "correct": "a",
+      "correct": "b",
       "explanation": "El RGPD indica que los responsables y encargados establecerán las medidas técnicas y organizativas apropiadas para garantizar un nivel de seguridad adecuado.",
       "hint": "Estás en «Protección de datos (RGPD/LOPDGDD)». Repasa la pregunta: «El RGPD es:» Identifica qué pide exactamente (definición, sujeto obligado, principio, plazo, tipo de dato, requisito formal, etc.) y contrasta cada opción con el vocabulario y criterios habituales del temario. Descarta respuestas que mezclen materias, confundan órganos o contradigan el marco general de la materia."
     },
@@ -2283,7 +2283,7 @@
           "text": "Ninguna de las otras respuestas es correcta"
         }
       ],
-      "correct": "c",
+      "correct": "a",
       "explanation": "Las otras tres respuestas son correctas.",
       "hint": "Las otras tres respuestas son correctas."
     },
@@ -2367,7 +2367,7 @@
           "text": "Las otras tres respuestas son correctas"
         }
       ],
-      "correct": "d",
+      "correct": "a",
       "explanation": "Las otras tres respuestas son correctas.",
       "hint": "Estás en «Protección de datos (RGPD/LOPDGDD)». Repasa la pregunta: «Según el RGPD, para atender el ejercicio de los derechos ARCO, el responsable:» Identifica qué pide exactamente (definición, sujeto obligado, principio, plazo, tipo de dato, requisito formal, etc.) y contrasta cada opción con el vocabulario y criterios habituales del temario. Descarta respuestas que mezclen materias, confundan órganos o contradigan el marco general de la materia."
     },
@@ -2395,7 +2395,7 @@
           "text": "Se deberá consultar a la Autoridad de Protección competente"
         }
       ],
-      "correct": "a",
+      "correct": "d",
       "explanation": "Un derecho autónomo.",
       "hint": "Estás en «Protección de datos (RGPD/LOPDGDD)». Repasa la pregunta: «Según el RGPD, cuando la realización de una Evaluación de Impacto de Protección de Datos (EIPD), identifique un alto riesgo que, a juicio del responsable de tratamiento, no pueda mitigarse:» Identifica qué pide exactamente (definición, sujeto obligado, principio, plazo, tipo de dato, requisito formal, etc.) y contrasta cada opción con el vocabulario y criterios habituales del temario. Descarta respuestas que mezclen materias, confundan órganos o contradigan el marco general de la materia."
     },
@@ -2423,7 +2423,7 @@
           "text": "Datos relativos a la salud"
         }
       ],
-      "correct": "c",
+      "correct": "a",
       "explanation": "Las otras tres respuestas son correctas.",
       "hint": "Las otras tres respuestas son correctas."
     },
@@ -2647,7 +2647,7 @@
           "text": "Datos genéticos"
         }
       ],
-      "correct": "a",
+      "correct": "b",
       "explanation": "Principio de minimización de datos.",
       "hint": "Principio de minimización de datos."
     },
@@ -2759,7 +2759,7 @@
           "text": "No es necesario pedir el consentimiento, pero sí informar a los interesados"
         }
       ],
-      "correct": "d",
+      "correct": "b",
       "explanation": "Si un interesado solicita una gran cantidad de información el responsable podrá pedir a éste que especifique la información a que se refiere.",
       "hint": "Estás en «Protección de datos (RGPD/LOPDGDD)». Repasa la pregunta: «Según el RGPD, si utilizamos el interés legítimo como base legal que habilita el tratamiento:» Identifica qué pide exactamente (definición, sujeto obligado, principio, plazo, tipo de dato, requisito formal, etc.) y contrasta cada opción con el vocabulario y criterios habituales del temario. Descarta respuestas que mezclen materias, confundan órganos o contradigan el marco general de la materia."
     },
@@ -2787,7 +2787,7 @@
           "text": "Principio de responsabilidad proactiva"
         }
       ],
-      "correct": "b",
+      "correct": "d",
       "explanation": "Se deberá consultar a la Autoridad de Protección competente.",
       "hint": "Se deberá consultar a la Autoridad de Protección competente."
     },
@@ -2927,7 +2927,7 @@
           "text": "Incluye los datos de terceras personas que un interesado haya facilitado a un responsable"
         }
       ],
-      "correct": "c",
+      "correct": "d",
       "explanation": "Las otras tres respuestas son correctas.",
       "hint": "Las otras tres respuestas son correctas."
     },
@@ -2955,7 +2955,7 @@
           "text": "Las otras tres respuestas son correctas"
         }
       ],
-      "correct": "b",
+      "correct": "c",
       "explanation": "Incluye los datos de terceras personas que un interesado haya facilitado a un responsable.",
       "hint": "Incluye los datos de terceras personas que un interesado haya facilitado a un responsable."
     },
@@ -3119,7 +3119,7 @@
           "text": "13 años"
         }
       ],
-      "correct": "a",
+      "correct": "b",
       "explanation": "Principio de Integridad y Seguridad.",
       "hint": "Principio de Integridad y Seguridad."
     },
@@ -3147,7 +3147,7 @@
           "text": "Los datos ya no son necesarios para el tratamiento, que también determinaría su borrado, pero el interesado solicita la limitación porque los necesita para la formulación, el ejercicio o la defensa de reclamaciones"
         }
       ],
-      "correct": "c",
+      "correct": "a",
       "explanation": "Principio de exactitud.",
       "hint": "Estás en «Protección de datos (RGPD/LOPDGDD)». Repasa la pregunta: «Según el RGPD se puede solicitar la limitación del tratamiento:» Identifica qué pide exactamente (definición, sujeto obligado, principio, plazo, tipo de dato, requisito formal, etc.) y contrasta cada opción con el vocabulario y criterios habituales del temario. Descarta respuestas que mezclen materias, confundan órganos o contradigan el marco general de la materia."
     },
@@ -3175,7 +3175,7 @@
           "text": "Todavía no ha entrado en vigor"
         }
       ],
-      "correct": "b",
+      "correct": "c",
       "explanation": "Datos de carácter personal.",
       "hint": "Estás en «Protección de datos (RGPD/LOPDGDD)». Repasa la pregunta: «El Reglamento General de Protección de Datos:» Identifica qué pide exactamente (definición, sujeto obligado, principio, plazo, tipo de dato, requisito formal, etc.) y contrasta cada opción con el vocabulario y criterios habituales del temario. Descarta respuestas que mezclen materias, confundan órganos o contradigan el marco general de la materia."
     },
@@ -3231,7 +3231,7 @@
           "text": "Principio de responsabilidad proactiva"
         }
       ],
-      "correct": "d",
+      "correct": "a",
       "explanation": "Derecho a la portabilidad.",
       "hint": "Estás en «Protección de datos (RGPD/LOPDGDD)». Repasa la pregunta: «“Los datos personales serán mantenidos de forma que se permita la identificación de los interesados por un plazo de tiempo no superior al necesario para cumplir con los fines del tratamiento”, nos referimos a:» Identifica qué pide exactamente (definición, sujeto obligado, principio, plazo, tipo de dato, requisito formal, etc.) y contrasta cada opción con el vocabulario y criterios habituales del temario. Descarta respuestas que mezclen materias, confundan órganos o contradigan el marco general de la materia."
     },
@@ -3287,7 +3287,7 @@
           "text": "Un derecho autónomo"
         }
       ],
-      "correct": "b",
+      "correct": "d",
       "explanation": "La autoridad nacional de protección de datos.",
       "hint": "La autoridad nacional de protección de datos."
     },
@@ -3539,7 +3539,7 @@
           "text": "Cuando el interesado lo solicita respecto a los datos que haya proporcionado al responsable y que le conciernan, incluidos los datos derivados de la propia actividad del interesado."
         }
       ],
-      "correct": "b",
+      "correct": "a",
       "explanation": "La respuesta correcta es la B: Cuando el tratamiento se base en el consentimiento o en un contrato",
       "hint": "Estás en «Protección de datos (RGPD/LOPDGDD)». Repasa la pregunta: «Según el RGPD el derecho a la portabilidad puede ejercerse cuando:» Identifica qué pide exactamente (definición, sujeto obligado, principio, plazo, tipo de dato, requisito formal, etc.) y contrasta cada opción con el vocabulario y criterios habituales del temario. Descarta respuestas que mezclen materias, confundan órganos o contradigan el marco general de la materia."
     },
@@ -3567,7 +3567,7 @@
           "text": "Sólo es aplicable a las Administraciones Públicas"
         }
       ],
-      "correct": "d",
+      "correct": "b",
       "explanation": "La respuesta correcta es la D: Sólo es aplicable a las Administraciones Públicas",
       "hint": "Estás en «Protección de datos (RGPD/LOPDGDD)». Repasa la pregunta: «La afirmación de que “algunas de las med idas que el RGPD establece se aplicarán sólo cuando exista un alto riesgo para los derechos y libertades, mientras que otras deberán modularse en función del nivel y tipo de ri…» Identifica qué pide exactamente (definición, sujeto obligado, principio, plazo, tipo de dato, requisito formal, etc.) y contrasta cada opción con el vocabulario y criterios habituales del temario. Descarta respuestas que mezclen materias, confundan órganos o contradigan el marco general de la materia."
     },
@@ -3679,7 +3679,7 @@
           "text": "Privacidad por Diseño"
         }
       ],
-      "correct": "c",
+      "correct": "a",
       "explanation": "La respuesta correcta es la C: Seudonimización",
       "hint": "Estás en «Protección de datos (RGPD/LOPDGDD)». Repasa la pregunta: «Por “Adopción de medidas técnicas y organizativas cuya finalidad es garantizar que por defecto sólo se traten aquellos datos que sean necesarios para los fines del tratamiento” se entiende:» Identifica qué pide exactamente (definición, sujeto obligado, principio, plazo, tipo de dato, requisito formal, etc.) y contrasta cada opción con el vocabulario y criterios habituales del temario. Descarta respuestas que mezclen materias, confundan órganos o contradigan el marco general de la materia."
     },
@@ -3763,7 +3763,7 @@
           "text": "Respuesta correcta"
         }
       ],
-      "correct": "b",
+      "correct": "c",
       "explanation": "La respuesta correcta es la B: Identidad del Responsable de Seguridad (si lo hubiere) Identidad del Consejero Delegado de la empresa",
       "hint": "Estás en «Protección de datos (RGPD/LOPDGDD)». Repasa la pregunta: «Según la RGPD, entre la información que se le debe dar a los interesados al realizar un tratamiento de sus datos se encuentra:» Identifica qué pide exactamente (definición, sujeto obligado, principio, plazo, tipo de dato, requisito formal, etc.) y contrasta cada opción con el vocabulario y criterios habituales del temario. Descarta respuestas que mezclen materias, confundan órganos o contradigan el marco general de la materia."
     },
@@ -3791,7 +3791,7 @@
           "text": "Se vayan a realizar perfiles"
         }
       ],
-      "correct": "a",
+      "correct": "b",
       "explanation": "La respuesta correcta es la A: Se trate de videovigilancia de grandes áreas",
       "hint": "Estás en «Protección de datos (RGPD/LOPDGDD)». Repasa la pregunta: «El RGPD señala que la información que se ofrece a los interesados en relación con el tratamiento o con el ejercicio de derechos deberá ser especialmente concisa, transparente, inteligible y proporcionada con lenguaje …» Identifica qué pide exactamente (definición, sujeto obligado, principio, plazo, tipo de dato, requisito formal, etc.) y contrasta cada opción con el vocabulario y criterios habituales del temario. Descarta respuestas que mezclen materias, confundan órganos o contradigan el marco general de la materia."
     },
@@ -3959,7 +3959,7 @@
           "text": "Principio de Integridad y Seguridad"
         }
       ],
-      "correct": "c",
+      "correct": "a",
       "explanation": "La respuesta correcta es la C: Principio de limitación de la finalidad",
       "hint": "Estás en «Protección de datos (RGPD/LOPDGDD)». Repasa la pregunta: «“Cuando se recaben datos de carácter personal deben ser tratados de manera lícita, leal y transparente” nos referimos al:» Identifica qué pide exactamente (definición, sujeto obligado, principio, plazo, tipo de dato, requisito formal, etc.) y contrasta cada opción con el vocabulario y criterios habituales del temario. Descarta respuestas que mezclen materias, confundan órganos o contradigan el marco general de la materia."
     },
@@ -4015,7 +4015,7 @@
           "text": "Principio de Integridad y Seguridad"
         }
       ],
-      "correct": "b",
+      "correct": "a",
       "explanation": "La respuesta correcta es la B: Principio de licitud, lealtad y transparencia",
       "hint": "Estás en «Protección de datos (RGPD/LOPDGDD)». Repasa la pregunta: «“Los datos personales serán adecuados, pertinentes y limitados a lo necesario en relación con los fines para los que son tratados.” nos referimos al:» Identifica qué pide exactamente (definición, sujeto obligado, principio, plazo, tipo de dato, requisito formal, etc.) y contrasta cada opción con el vocabulario y criterios habituales del temario. Descarta respuestas que mezclen materias, confundan órganos o contradigan el marco general de la materia."
     },
@@ -4323,7 +4323,7 @@
           "text": "Datos genéticos"
         }
       ],
-      "correct": "d",
+      "correct": "b",
       "explanation": "La respuesta correcta es la D: Datos genéticos",
       "hint": "Estás en «Protección de datos (RGPD/LOPDGDD)». Repasa la pregunta: «“Datos personales relativos a la salud física o mental de una persona física, incluida la prestación de servicios de atención sanitaria, que revelen información sobre su estado de salud”:» Identifica qué pide exactamente (definición, sujeto obligado, principio, plazo, tipo de dato, requisito formal, etc.) y contrasta cada opción con el vocabulario y criterios habituales del temario. Descarta respuestas que mezclen materias, confundan órganos o contradigan el marco general de la materia."
     },
@@ -4519,7 +4519,7 @@
           "text": "Elaboración de perfiles sobre cuya base se tomen decisiones que produzcan efectos jurídicos s obre los interesados o que les afecten significativamente de modo similar"
         }
       ],
-      "correct": "c",
+      "correct": "a",
       "explanation": "La respuesta correcta es la C: Observación sistemática a gran escala de una zona de acceso público",
       "hint": "Estás en «Protección de datos (RGPD/LOPDGDD)». Repasa la pregunta: «Según el RGPD ¿qué tipo de tratamiento de datos personales conlleva un alto riesgo?:» Identifica qué pide exactamente (definición, sujeto obligado, principio, plazo, tipo de dato, requisito formal, etc.) y contrasta cada opción con el vocabulario y criterios habituales del temario. Descarta respuestas que mezclen materias, confundan órganos o contradigan el marco general de la materia."
     },
@@ -4547,7 +4547,7 @@
           "text": "Ninguna de las otras respuestas"
         }
       ],
-      "correct": "a",
+      "correct": "c",
       "explanation": "La respuesta correcta es la A: Reglamento General de Privacidad de los Datos",
       "hint": "Estás en «Protección de datos (RGPD/LOPDGDD)». Repasa la pregunta: «Por RGPD entendemos:» Identifica qué pide exactamente (definición, sujeto obligado, principio, plazo, tipo de dato, requisito formal, etc.) y contrasta cada opción con el vocabulario y criterios habituales del temario. Descarta respuestas que mezclen materias, confundan órganos o contradigan el marco general de la materia."
     },
